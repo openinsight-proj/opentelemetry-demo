@@ -1,3 +1,4 @@
+data_service_name: dataservice
 spring:
   application:
     name: adservice-v2
