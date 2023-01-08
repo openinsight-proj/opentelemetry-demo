@@ -1,6 +1,6 @@
 spring:
-application:
-  name: adservice-v2
+  application:
+    name: adservice-v2
 server:
   port: 8443
   ssl:
