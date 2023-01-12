@@ -46,15 +46,19 @@ spring:
         enabled: false
         # Nacos配置中心地址
         server-addr: nacos-server-address:port
+        # Nacos注册配置中心用户名（如果注册中心不开启鉴权，留空）
+        username: nacos
+        # Nacos注册配置中心密码（如果注册中心不开启鉴权，留空）
+        password: nacos
       discovery:
         # 是否开启Nacos注册中心集成
         enabled: false
         # Nacos注册中心地址
         server-addr: nacos-server-address:port
-        # Nacos注册中心用户名（如果注册中心不开启鉴权，留空）
-        username:
-        # Nacos注册中心密码（如果注册中心不开启鉴权，留空）
-        password:
+        # Nacos注册配置中心用户名（如果注册中心不开启鉴权，留空）
+        username: nacos
+        # Nacos注册配置中心密码（如果注册中心不开启鉴权，留空）
+        password: nacos
         # 修改服务注册到Nacos的命名空间ID，默认留空（空为public）
         namespace:
         # 修改服务注册到Nacos的分组名称，默认是：DEFAULT_GROUP
@@ -94,6 +98,10 @@ spring:
             groupId: ${spring.cloud.nacos.discovery.group}
             namespace: ${spring.cloud.nacos.discovery.namespace}
             rule-type: flow
+            # Nacos注册配置中心用户名（如果注册中心不开启鉴权，留空）
+            username: nacos
+            # Nacos注册配置中心密码（如果注册中心不开启鉴权，留空）
+            password: nacos
         degrade:
           nacos:
             server-addr: ${spring.cloud.nacos.config.server-addr}
@@ -101,6 +109,10 @@ spring:
             groupId: ${spring.cloud.nacos.discovery.group}
             namespace: ${spring.cloud.nacos.discovery.namespace}
             rule-type: degrade
+            # Nacos注册配置中心用户名（如果注册中心不开启鉴权，留空）
+            username: nacos
+            # Nacos注册配置中心密码（如果注册中心不开启鉴权，留空）
+            password: nacos
         system:
           nacos:
             server-addr: ${spring.cloud.nacos.config.server-addr}
@@ -108,6 +120,10 @@ spring:
             groupId: ${spring.cloud.nacos.discovery.group}
             namespace: ${spring.cloud.nacos.discovery.namespace}
             rule-type: system
+            # Nacos注册配置中心用户名（如果注册中心不开启鉴权，留空）
+            username: nacos
+            # Nacos注册配置中心密码（如果注册中心不开启鉴权，留空）
+            password: nacos
         authority:
           nacos:
             server-addr: ${spring.cloud.nacos.config.server-addr}
@@ -115,6 +131,10 @@ spring:
             groupId: ${spring.cloud.nacos.discovery.group}
             namespace: ${spring.cloud.nacos.discovery.namespace}
             rule-type: authority
+            # Nacos注册配置中心用户名（如果注册中心不开启鉴权，留空）
+            username: nacos
+            # Nacos注册配置中心密码（如果注册中心不开启鉴权，留空）
+            password: nacos
         param-flow:
           nacos:
             server-addr: ${spring.cloud.nacos.config.server-addr}
@@ -122,6 +142,10 @@ spring:
             groupId: ${spring.cloud.nacos.discovery.group}
             namespace: ${spring.cloud.nacos.discovery.namespace}
             rule-type: param-flow
+            # Nacos注册配置中心用户名（如果注册中心不开启鉴权，留空）
+            username: nacos
+            # Nacos注册配置中心密码（如果注册中心不开启鉴权，留空）
+            password: nacos
 
 ---
 project:
