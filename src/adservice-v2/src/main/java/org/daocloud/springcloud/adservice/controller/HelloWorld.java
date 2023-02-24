@@ -130,4 +130,21 @@ public class HelloWorld {
         }
         return Mono.just(headers);
     }
+
+    @RequestMapping("/cookie-set")
+    public Mono<String> cookieSet(ServerHttpResponse response,Cookie cookie){
+        if (cookie == null){
+            return Mono.empty();
+        }
+        ResponseCookie responseCookie = ResponseCookie.from(cookie.getName(), cookie.getValue())
+                .domain(cookie.getDomain())
+                .httpOnly(cookie.isHttpOnly())
+                .maxAge(cookie.getMaxAge())
+                .path(cookie.getPath())
+                .sameSite(cookie.getSameSite())
+                .secure(cookie.isSecure())
+                .build();
+        response.addCookie(responseCookie);
+        return Mono.just(cookie.toString());
+    }
 }
