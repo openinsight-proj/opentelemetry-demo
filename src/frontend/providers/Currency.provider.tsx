@@ -12,10 +12,11 @@
 import { createContext, useCallback, useContext, useMemo, useState, useEffect } from 'react';
 import { useQuery } from 'react-query';
 // import ApiGateway from '../gateways/Api.gateway';
+
 import SessionGateway from '../gateways/Session.gateway';
 
 const { currencyCode } = SessionGateway.getSession();
-
+console.log('test')
 interface IContext {
   currencyCodeList: string[];
   setSelectedCurrency(currency: string): void;
