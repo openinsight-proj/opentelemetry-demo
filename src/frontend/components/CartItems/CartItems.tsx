@@ -22,9 +22,9 @@ const CartItems = ({ productList, shouldShowPrice = true }: IProps) => {
     country: 'United States',
     zipCode: '94043',
   };
-  const show=false
+
   const { data: shippingConst = { units: 0, currencyCode: 'USD', nanos: 0 } } = useQuery('shipping', () =>
-    show ? ApiGateway.getShippingCost(productList, selectedCurrency, address) : {}
+    address.zipCode==='123' ? ApiGateway.getShippingCost(productList, selectedCurrency, address) : null
   );
 
   const total = useMemo<Money>(() => {
