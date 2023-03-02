@@ -24,7 +24,7 @@ const CartItems = ({ productList, shouldShowPrice = true }: IProps) => {
   };
   const { data: shippingConst = { units: 0, currencyCode: 'USD', nanos: 0 } } = useQuery('shipping', () =>
     // ApiGateway.getShippingCost(productList, selectedCurrency, address)
-    {}
+    null
   );
 
   const total = useMemo<Money>(() => {
