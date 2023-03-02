@@ -18,7 +18,7 @@ import Layout from '../components/Layout';
 import ProductList from '../components/ProductList';
 import * as S from '../styles/Home.styled';
 import { useQuery } from 'react-query';
-// import ApiGateway from '../gateways/Api.gateway';
+import ApiGateway from '../gateways/Api.gateway';
 import Banner from '../components/Banner';
 import { CypressFields } from '../utils/Cypress';
 import { useCurrency } from '../providers/Currency.provider';
