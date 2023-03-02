@@ -1,6 +1,6 @@
 import { createContext, useContext, useMemo } from 'react';
 import { useQuery } from 'react-query';
-import ApiGateway from '../gateways/Api.gateway';
+// import ApiGateway from '../gateways/Api.gateway';
 import { Ad, Money, Product } from '../protos/demo';
 import { useCurrency } from './Currency.provider';
 

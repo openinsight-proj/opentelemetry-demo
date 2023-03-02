@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useQuery } from 'react-query';
-import ApiGateway from '../../gateways/Api.gateway';
+// import ApiGateway from '../../gateways/Api.gateway';
 import { Address, Money } from '../../protos/demo';
 import { useCurrency } from '../../providers/Currency.provider';
 import { IProductCartItem } from '../../types/Cart';
