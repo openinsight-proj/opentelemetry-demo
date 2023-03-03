@@ -1,6 +1,6 @@
 import { createContext, useCallback, useContext, useMemo } from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
-// import ApiGateway from '../gateways/Api.gateway';
+import ApiGateway from '../gateways/Api.gateway';
 import { CartItem, OrderResult, PlaceOrderRequest } from '../protos/demo';
 import { IProductCart } from '../types/Cart';
 import { useCurrency } from './Currency.provider';
@@ -41,13 +41,9 @@ const CartProvider = ({ children }: IProps) => {
     // ApiGateway.getCart(selectedCurrency)
     []
   );
-  // const addCartMutation = useMutation(ApiGateway.addCartItem, mutationOptions);
-  // const emptyCartMutation = useMutation(ApiGateway.emptyCart, mutationOptions);
-  // const placeOrderMutation = useMutation(ApiGateway.placeOrder, mutationOptions);
-    const addCartMutation = useMutation('', mutationOptions);
-    const emptyCartMutation = useMutation('', mutationOptions);
-    const placeOrderMutation = useMutation('', mutationOptions);
-
+  const addCartMutation = useMutation(ApiGateway.addCartItem, mutationOptions);
+  const emptyCartMutation = useMutation(ApiGateway.emptyCart, mutationOptions);
+  const placeOrderMutation = useMutation(ApiGateway.placeOrder, mutationOptions);
   const addItem = useCallback(
     (item: CartItem) => addCartMutation.mutateAsync({ ...item, currencyCode: selectedCurrency }),
     [addCartMutation, selectedCurrency]
