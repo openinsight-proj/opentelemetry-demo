@@ -38,7 +38,8 @@ const CartProvider = ({ children }: IProps) => {
   );
 
   const { data: cart = { userId: '', items: [] } } = useQuery(['cart', selectedCurrency], () =>
-    ApiGateway.getCart(selectedCurrency)
+    // ApiGateway.getCart(selectedCurrency)
+    []
   );
   // const addCartMutation = useMutation(ApiGateway.addCartItem, mutationOptions);
   // const emptyCartMutation = useMutation(ApiGateway.emptyCart, mutationOptions);
