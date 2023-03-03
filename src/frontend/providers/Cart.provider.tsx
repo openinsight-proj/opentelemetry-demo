@@ -44,9 +44,9 @@ const CartProvider = ({ children }: IProps) => {
   // const addCartMutation = useMutation(ApiGateway.addCartItem, mutationOptions);
   // const emptyCartMutation = useMutation(ApiGateway.emptyCart, mutationOptions);
   // const placeOrderMutation = useMutation(ApiGateway.placeOrder, mutationOptions);
-    const addCartMutation = useMutation({}, mutationOptions);
-    const emptyCartMutation = useMutation({}, mutationOptions);
-    const placeOrderMutation = useMutation({}, mutationOptions);
+    const addCartMutation = useMutation('', mutationOptions);
+    const emptyCartMutation = useMutation('', mutationOptions);
+    const placeOrderMutation = useMutation('', mutationOptions);
 
   const addItem = useCallback(
     (item: CartItem) => addCartMutation.mutateAsync({ ...item, currencyCode: selectedCurrency }),
