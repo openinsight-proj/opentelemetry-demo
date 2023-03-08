@@ -4,14 +4,14 @@
  * @email: Ning.Tang@daocloud.io
  * @gitlab: https://gitlab.daocloud.cn/ning.tang/dso-ui.git
  * @Date: 2023-03-02 17:19:51
- * @LastEditTime: 2023-03-03 14:00:54
+ * @LastEditTime: 2023-03-08 12:15:26
  * @motto: Still water run deep
  * @Description: Modify here please
  * @FilePath: \opentelemetry-demo\src\frontend\providers\Currency.provider.tsx
  */
 import { createContext, useCallback, useContext, useMemo, useState, useEffect } from 'react';
 import { useQuery } from 'react-query';
-// import ApiGateway from '../gateways/Api.gateway';
+import ApiGateway from '../gateways/Api.gateway';
 
 import SessionGateway from '../gateways/Session.gateway';
 
@@ -36,9 +36,10 @@ interface IProps {
 export const useCurrency = () => useContext(Context);
 
 const CurrencyProvider = ({ children }: IProps) => {
-  const { data: currencyCodeListUnsorted = [] } = useQuery('currency', []
+  // const { data: currencyCodeListUnsorted = [] } = useQuery('currency',
   // ApiGateway.getSupportedCurrencyList
-  );
+  // );
+   const { data: currencyCodeListUnsorted = [] } = useQuery('currency');
   const [selectedCurrency, setSelectedCurrency] = useState<string>('');
 
   useEffect(() => {
