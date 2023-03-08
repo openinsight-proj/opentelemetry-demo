@@ -11,7 +11,7 @@
  */
 import { createContext, useContext, useMemo } from 'react';
 import { useQuery } from 'react-query';
-// import ApiGateway from '../gateways/Api.gateway';
+import ApiGateway from '../gateways/Api.gateway';
 import { Ad, Money, Product } from '../protos/demo';
 import { useCurrency } from './Currency.provider';
 
@@ -41,7 +41,7 @@ const AdProvider = ({ children, productIds, contextKeys }: IProps) => {
       if (contextKeys.length === 0) {
         return Promise.resolve([]);
       } else {
-        // return ApiGateway.listAds(contextKeys);
+        return ApiGateway.listAds(contextKeys);
       }
     },
     {
