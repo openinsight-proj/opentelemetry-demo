@@ -11,7 +11,7 @@
  */
 import { createContext, useCallback, useContext, useMemo, useState, useEffect } from 'react';
 import { useQuery } from 'react-query';
-import ApiGateway from '../gateways/Api.gateway';
+// import ApiGateway from '../gateways/Api.gateway';
 
 import SessionGateway from '../gateways/Session.gateway';
 
