@@ -10,7 +10,8 @@
  * @FilePath: \opentelemetry-demo\src\frontend\providers\Cart.provider.tsx
  */
 import { createContext, useCallback, useContext, useMemo } from 'react';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
+// import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import ApiGateway from '../gateways/Api.gateway';
 import { CartItem, OrderResult, PlaceOrderRequest } from '../protos/demo';
 import { IProductCart } from '../types/Cart';
