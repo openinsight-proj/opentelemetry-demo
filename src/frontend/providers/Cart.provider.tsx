@@ -1,3 +1,14 @@
+/*
+ * @Author: Ning Tang
+ * @LastEditors: Ning Tang
+ * @email: Ning.Tang@daocloud.io
+ * @gitlab: https://gitlab.daocloud.cn/ning.tang/dso-ui.git
+ * @Date: 2023-03-02 17:19:51
+ * @LastEditTime: 2023-03-10 10:24:12
+ * @motto: Still water run deep
+ * @Description: Modify here please
+ * @FilePath: \opentelemetry-demo\src\frontend\providers\Cart.provider.tsx
+ */
 import { createContext, useCallback, useContext, useMemo } from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import ApiGateway from '../gateways/Api.gateway';
@@ -39,8 +50,8 @@ const CartProvider = ({ children }: IProps) => {
 
   // const { data: cart = { userId: '', items: [] } } = useQuery(['cart', selectedCurrency], () =>
   //   ApiGateway.getCart(selectedCurrency)
+   
   // );
-  const { data: cart = { userId: '', items: [] } } = useQuery(['cart', selectedCurrency]);
   const addCartMutation = useMutation(ApiGateway.addCartItem, mutationOptions);
   const emptyCartMutation = useMutation(ApiGateway.emptyCart, mutationOptions);
   const placeOrderMutation = useMutation(ApiGateway.placeOrder, mutationOptions);
@@ -54,7 +65,7 @@ const CartProvider = ({ children }: IProps) => {
     [placeOrderMutation, selectedCurrency]
   );
 
-  const value = useMemo(() => ({ cart, addItem, emptyCart, placeOrder }), [cart, addItem, emptyCart, placeOrder]);
+  const value = useMemo(() => ({chart:{},addItem, emptyCart, placeOrder }), [addItem, emptyCart, placeOrder]);
 
   return <Context.Provider value={value}>{children}</Context.Provider>;
 };

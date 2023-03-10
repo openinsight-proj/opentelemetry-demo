@@ -50,7 +50,8 @@ const AdProvider = ({ children, productIds, contextKeys }: IProps) => {
   );
   const { data: recommendedProductList = [] } = useQuery(
     ['recommendations', productIds, 'selectedCurrency', selectedCurrency],
-    () => [],
+    () => 
+    Promise.resolve([]),
     // ApiGateway.listRecommendations(productIds, selectedCurrency),
     {
       refetchOnWindowFocus: false,
