@@ -4,7 +4,7 @@
  * @email: Ning.Tang@daocloud.io
  * @gitlab: https://gitlab.daocloud.cn/ning.tang/dso-ui.git
  * @Date: 2023-03-02 17:19:51
- * @LastEditTime: 2023-03-10 11:06:37
+ * @LastEditTime: 2023-03-10 11:20:00
  * @motto: Still water run deep
  * @Description: Modify here please
  * @FilePath: \opentelemetry-demo\src\frontend\providers\Cart.provider.tsx
@@ -66,7 +66,10 @@ const CartProvider = ({ children }: IProps) => {
     [placeOrderMutation, selectedCurrency]
   );
 
-  const value = useMemo(() => ({ cart: {}, addItem, emptyCart, placeOrder }), [addItem, emptyCart, placeOrder]);
+  const value = useMemo(
+    () => ({ cart: { userId: '', items: [] }, addItem, emptyCart, placeOrder }),
+    [addItem, emptyCart, placeOrder]
+  );
 
   return <Context.Provider value={value}>{children}</Context.Provider>;
 };
