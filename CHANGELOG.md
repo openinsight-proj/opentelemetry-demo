@@ -19,8 +19,6 @@ release.
 ([#796](https://github.com/open-telemetry/opentelemetry-demo/pull/796))
 * Fixed shipping update in the frontend UI when number of products in cart changes
 ([#799](https://github.com/open-telemetry/opentelemetry-demo/pull/799))
-* Add sentinel rules test demo
-([#5](https://github.com/openinsight-proj/opentelemetry-demo/pull/5))
 
 ## v0.1.0
 
