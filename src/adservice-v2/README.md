@@ -15,7 +15,7 @@ This repo re-implements opentelemetry-demo-webstore's adservice with nacos regis
 ## curl
 
 ```shell
-grpcurl -plaintext -d '{"context_keys": ["binoculars","telescopes"]}' localhost:8080 hipstershop.AdService/GetAds
+grpcurl -plaintext -d '{"context_keys": ["binoculars","telescopes"]}' localhost:8080 oteldemo.AdService/GetAds
 ```
 
 ## metrics
