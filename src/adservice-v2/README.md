@@ -29,12 +29,12 @@ adservice-springcloud will emit two metrics:
 
 ## mock latency
 
-the `hipstershop.AdService/GetAds` API will do a matrix calculation internally, you can use  `-Dspring.matrixRow=200`
+the `oteldemo.AdService/GetAds` API will do a matrix calculation internally, you can use  `-Dspring.matrixRow=200`
 to specific the matrix size
 
 ## mock error
 
-the `hipstershop.AdService/GetAds` API will return error randomly(50%), you can use `-Dspring.randomError=false`
+the `oteldemo.AdService/GetAds` API will return error randomly(50%), you can use `-Dspring.randomError=false`
 to disable this feature.
 
 
