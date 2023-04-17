@@ -75,12 +75,15 @@ public class AdServiceGrpcService extends AdServiceGrpc.AdServiceImplBase {
             matrixCalculate(matrixRow);
 
             if(dataService){
+                logger.info("data service is enabled, get Ad data from dataservice");
                 ResponseEntity<Advertise[]> advertiseResponseEntity = null;
                 if(nacos){
+                    logger.info("nacos is enabled, call dataservice by nacos registry");
                     for (int i = 0; i < req.getContextKeysCount(); i++){
                         advertiseResponseEntity = adController.getAllAds();
                     }
                 }else{
+                    logger.info("nacos is disabled, call dataservice by raw http");
                     String dataServiceAddr = System.getenv("DATA_SERVICE_ADDR");
                     RestTemplate restTemplate = new RestTemplate();
                     for (int i = 0; i < req.getContextKeysCount(); i++){
