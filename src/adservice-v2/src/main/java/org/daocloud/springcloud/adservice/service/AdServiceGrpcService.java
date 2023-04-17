@@ -80,7 +80,7 @@ public class AdServiceGrpcService extends AdServiceGrpc.AdServiceImplBase {
                 if(nacosEnabled){
                     logger.info("nacos is enabled, call dataservice by nacos registry");
                     for (int i = 0; i < req.getContextKeysCount(); i++){
-                        advertiseResponseEntity = adController.getAllAds();
+                        advertiseResponseEntity = adController.findByAdKey(req.getContextKeys(i));
                     }
                 }else{
                     logger.info("nacos is disabled, call dataservice by raw http");
