@@ -55,10 +55,10 @@ public class AdServiceGrpcService extends AdServiceGrpc.AdServiceImplBase {
     private int matrixRow;
 
     @Value("${spring.dataService.enabled}")
-    private boolean dataService;
+    private boolean dataServiceEnabled;
 
     @Value("${spring.cloud.nacos.config.enabled}")
-    private boolean nacos;
+    private boolean nacosEnabled;
 
     @Override
     public void getAds(AdRequest req, StreamObserver<AdResponse> responseObserver) {
@@ -74,10 +74,10 @@ public class AdServiceGrpcService extends AdServiceGrpc.AdServiceImplBase {
             // do matrixCalculate
             matrixCalculate(matrixRow);
 
-            if(dataService){
+            if(dataServiceEnabled){
                 logger.info("data service is enabled, get Ad data from dataservice");
                 ResponseEntity<Advertise[]> advertiseResponseEntity = null;
-                if(nacos){
+                if(nacosEnabled){
                     logger.info("nacos is enabled, call dataservice by nacos registry");
                     for (int i = 0; i < req.getContextKeysCount(); i++){
                         advertiseResponseEntity = adController.getAllAds();
