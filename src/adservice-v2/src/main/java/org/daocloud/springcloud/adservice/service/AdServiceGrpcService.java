@@ -74,7 +74,7 @@ public class AdServiceGrpcService extends AdServiceGrpc.AdServiceImplBase {
             // do matrixCalculate
             matrixCalculate(matrixRow);
 
-            if(dataServiceEnabled){
+            if(dataServiceEnabled && req.getContextKeysCount() > 0){
                 logger.info("data service is enabled, get Ad data from dataservice");
                 ResponseEntity<Advertise[]> advertiseResponseEntity = null;
                 if(nacosEnabled){
