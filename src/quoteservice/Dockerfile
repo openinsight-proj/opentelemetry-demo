@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 
-FROM composer:2.4 AS build
+FROM composer:2.5 AS build
 
 WORKDIR /tmp/
 COPY ./src/quoteservice/composer.json .
@@ -23,7 +23,7 @@ RUN chmod +x /usr/local/bin/install-php-extensions \
     opcache \
     pcntl \
     protobuf \
-    opentelemetry-1.0.0beta3
+    opentelemetry-beta
 
 WORKDIR /var/www
 COPY --from=build /tmp/vendor/ ./vendor/
