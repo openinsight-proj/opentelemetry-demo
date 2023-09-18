@@ -36,29 +36,29 @@ public class HelloWorld {
     }
 
     @RequestMapping("/")
-    public Mono<String> helloWorld(){
+    public Mono<String> helloWorld() {
         return Mono.just("adservice-springcloud: hello world!");
     }
 
     @RequestMapping("/test1")
-    public Mono<String> test1(){
+    public Mono<String> test1() {
         return Mono.just("This is a test 1 API.");
     }
 
     @RequestMapping("/test2")
-    public Mono<String> test2(){
+    public Mono<String> test2() {
         return Mono.just("This is a test 2 API.");
     }
 
     @GetMapping("/dynamic-config")
-    public Mono<String> dynamicConfig(){
+    public Mono<String> dynamicConfig() {
         return Mono.just(config);
     }
 
     @RequestMapping("/timeout/{timeout}")
-    public Mono<String> helloWorld(@PathVariable long timeout) throws InterruptedException{
+    public Mono<String> helloWorld(@PathVariable long timeout) throws InterruptedException {
         Thread.sleep(timeout);
-        return Mono.just("timeout:"+timeout);
+        return Mono.just("timeout:" + timeout);
     }
 
 //    @PostMapping("/method")
@@ -67,8 +67,8 @@ public class HelloWorld {
 //    }
 
     @RequestMapping("/method")
-    public Mono<String> method(ServerHttpRequest request){
-        return Mono.just("method:"+request.getMethodValue());
+    public Mono<String> method(ServerHttpRequest request) {
+        return Mono.just("method:" + request.getMethodValue());
     }
 
     @RequestMapping("/hostname")
@@ -76,42 +76,42 @@ public class HelloWorld {
         InetAddress localHost = InetAddress.getLocalHost();
         String hostName = localHost.getHostName();
 
-        return Mono.just("hostname:"+hostName);
+        return Mono.just("hostname:" + hostName);
     }
 
     @RequestMapping("/ip")
     public Mono<String> ip() throws UnknownHostException {
         InetAddress localHost = InetAddress.getLocalHost();
         String address = localHost.getHostAddress();
-        return Mono.just("ip address:"+address);
+        return Mono.just("ip address:" + address);
     }
 
 
-    @RequestMapping({"/path/**","/path**"})
-    public Mono<String> path(ServerHttpRequest request){
-        return Mono.just("path:"+ request.getPath());
+    @RequestMapping({"/path/**", "/path**"})
+    public Mono<String> path(ServerHttpRequest request) {
+        return Mono.just("path:" + request.getPath());
     }
 
     @RequestMapping("/set-retry-count/{limit}")
-    public Mono<String> retryCount(@PathVariable long limit){
+    public Mono<String> retryCount(@PathVariable long limit) {
         HelloWorld.limit = limit;
         count = new AtomicLong();
-        return Mono.just("retry-count-limit:"+limit);
+        return Mono.just("retry-count-limit:" + limit);
     }
 
     @RequestMapping("/retry")
-    public Mono<String> retry(ServerHttpResponse response){
-        if (limit <1 || count.addAndGet(1) % limit ==0){
+    public Mono<String> retry(ServerHttpResponse response) {
+        if (limit < 1 || count.addAndGet(1) % limit == 0) {
             count = new AtomicLong();
-            return Mono.just("retry:"+"success");
+            return Mono.just("retry:" + "success");
         }
         response.setStatusCode(HttpStatus.SERVICE_UNAVAILABLE);
-        return Mono.just("retry fai,count is:"+ count.get());
+        return Mono.just("retry fai,count is:" + count.get());
     }
 
     @RequestMapping("/request-header")
-    public Mono<Map<String,List<String>>> requestHeader(ServerHttpRequest request, @RequestParam(required = false) List<String> header){
-        if (CollectionUtils.isEmpty(header)){
+    public Mono<Map<String, List<String>>> requestHeader(ServerHttpRequest request, @RequestParam(required = false) List<String> header) {
+        if (CollectionUtils.isEmpty(header)) {
             return Mono.empty();
         }
         Map<String, List<String>> headers = new HashMap<>();
@@ -122,8 +122,8 @@ public class HelloWorld {
     }
 
     @RequestMapping("/response-header")
-    public Mono<Map<String,List<String>>> responseHeader(ServerHttpResponse response, @RequestParam(required = false) List<String> header){
-        if (CollectionUtils.isEmpty(header)){
+    public Mono<Map<String, List<String>>> responseHeader(ServerHttpResponse response, @RequestParam(required = false) List<String> header) {
+        if (CollectionUtils.isEmpty(header)) {
             return Mono.empty();
         }
         Map<String, List<String>> headers = new HashMap<>();
@@ -134,8 +134,8 @@ public class HelloWorld {
     }
 
     @RequestMapping("/cookie-set")
-    public Mono<String> cookieSet(ServerHttpResponse response,Cookie cookie){
-        if (cookie == null){
+    public Mono<String> cookieSet(ServerHttpResponse response, Cookie cookie) {
+        if (cookie == null) {
             return Mono.empty();
         }
         ResponseCookie responseCookie = ResponseCookie.from(cookie.getName(), cookie.getValue())
@@ -148,5 +148,11 @@ public class HelloWorld {
                 .build();
         response.addCookie(responseCookie);
         return Mono.just(cookie.toString());
+    }
+
+    @GetMapping("/status/{statusCode}")
+    public Mono<String> getHttpStatus(ServerHttpResponse response, @PathVariable String statusCode) {
+        response.setStatusCode(HttpStatus.valueOf(Integer.parseInt(statusCode)));
+        return Mono.just("ok");
     }
 }
