@@ -1,6 +1,7 @@
 package io.daocloud.dataservice.controller;
 
 import io.daocloud.dataservice.entity.Ad;
+import io.daocloud.dataservice.entity.Info;
 import io.daocloud.dataservice.repository.AdRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.Random;
 
 @Controller    // This means that this class is a Controller
 @RequestMapping(path = "/ad") // This means URL's start with /ad (after Application path)
@@ -49,9 +52,20 @@ public class DataserviceController {
 
     @GetMapping(path = "/ad-key/{adKey}")
     @ResponseBody
-    public Iterable<Ad> findAdvertiseByAdKey(@PathVariable("adKey") String adKey){
+    public Iterable<Ad> findAdvertiseByAdKey(@PathVariable("adKey") String adKey) {
         // This returns a JSON or XML with the users
         logger.info("received ad request (context_words=" + adKey + ")");
         return adRepository.findByAdKey(adKey);
+    }
+
+    @GetMapping(path = "/call")
+    @ResponseBody
+    public Info call() {
+        Random random = new Random();
+        Info info = new Info();
+        info.setID(String.format("%d%d", System.currentTimeMillis(), random.nextInt(10)));
+        info.setHostName(System.getenv("HOSTNAME"));
+        info.setVersion(System.getenv("VERSION"));
+        return info;
     }
 }
