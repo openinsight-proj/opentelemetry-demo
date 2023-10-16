@@ -1,0 +1,7 @@
+POST localhost:9001/lanes/
+Content-Type: application/json
+
+{
+  "name" : "daocloud",
+  "laneNo": "123"
+}

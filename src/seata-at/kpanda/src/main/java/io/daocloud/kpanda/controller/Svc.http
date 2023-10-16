@@ -1,0 +1,7 @@
+POST localhost:9000/svc/
+Content-Type: application/json
+
+{
+  "id" : 1,
+  "label" : "mspider"
+}

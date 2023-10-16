@@ -1,0 +1,17 @@
+POST localhost:10000/lanes/
+Content-Type: application/json
+
+{
+  "name" : "daocloud11",
+  "label" : "test11"
+}
+
+###
+
+POST localhost:10000/lanes/err
+Content-Type: application/json
+
+{
+"name" : "daocloud11",
+"label" : "test11"
+}
