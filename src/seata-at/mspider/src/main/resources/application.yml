@@ -1,0 +1,64 @@
+server:
+  port: 9001
+
+spring:
+  application:
+    name: mspider-service
+  cloud:
+    nacos:
+      server-addr: ${nacos.address:localhost:8848}
+      enabled: true
+    config:
+      server-addr: ${nacos.address:localhost:8848}
+      namespace:
+    discovery:
+      namspace:
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+  datasource:
+    dynamic:
+      primary: master
+      druid:
+        initial-size: 3
+        min-idle: 3
+        max-active: 40
+        max-wait: 60000
+      datasource:
+        master:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://${mysql.address:localhost:3306}/${mysql.dbName:mspider}?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+          username: ${mysql.username:root}
+          password: ${mysql.password:root}
+mybatis-plus:
+  mapper-locations: classpath:mapperXml/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+logging:
+  level:
+    org.springframework.jdbc.core.JdbcTemplate: DEBUG
+
+seata:
+  enable-auto-data-source-proxy: true
+  data-source-proxy-mode: AT
+  application-id: ${spring.application.name}
+  tx-service-group: mspider-service-group
+#  service:
+#    vgroupMapping:
+#      mspider-service-group: default
+#    grouplist:
+#      default: ${nacos.address:localhost:8848}
+  registry:
+    type: nacos
+    nacos.:
+      server-addr: ${nacos.address:localhost:8848}
+      application: seata-server
+      group: SEATA_GROUP
+      namespace:
+  config:
+    type: nacos
+    nacos.:
+      server-addr: ${nacos.address:localhost:8848}
+      group: SEATA_GROUP
+      data-id: ${spring.application.name}-seata.properties

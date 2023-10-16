@@ -1,0 +1,171 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kpanda-service
+  namespace: skoala-jia
+  labels:
+    k8s-app: kpanda-service
+spec:
+  type: NodePort
+  ports:
+    - port: 9000
+      nodePort: 30094
+      protocol: TCP
+      name: http
+  selector:
+    k8s-app: kpanda-service
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kpanda-service
+  namespace: skoala-jia
+  labels:
+    k8s-app: kpanda-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: kpanda-service
+  template:
+    metadata:
+      labels:
+        k8s-app: kpanda-service
+    spec:
+      containers:
+        - name: kpanda-server
+          image: release-ci.daocloud.io/skoala/seata-kpanda:v0.0.2
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 9000
+              protocol: TCP
+          env:
+            - name: nacos.address
+              value: nacos-jia.skoala-jia:8848
+            - name: mysql.address
+              value: mysql.skoala-jia:3306
+            - name: mysql.dbName
+              value: kpanda
+            - name: mysql.username
+              value: root
+            - name: mysql.password
+              value: root
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mspider-service
+  namespace: skoala-jia
+  labels:
+    k8s-app: mspider-service
+spec:
+  type: NodePort
+  ports:
+    - port: 9001
+      nodePort: 30095
+      protocol: TCP
+      name: http
+  selector:
+    k8s-app: mspider-service
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mspider-service
+  namespace: skoala-jia
+  labels:
+    k8s-app: mspider-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: mspider-service
+  template:
+    metadata:
+      labels:
+        k8s-app: mspider-service
+    spec:
+      containers:
+        - name: mspider-server
+          image: release-ci.daocloud.io/skoala/seata-mspider:v0.0.2
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 9001
+              protocol: TCP
+          env:
+            - name: nacos.address
+              value: nacos-jia.skoala-jia:8848
+            - name: mysql.address
+              value: mysql.skoala-jia:3306
+            - name: mysql.dbName
+              value: mspider
+            - name: mysql.username
+              value: root
+            - name: mysql.password
+              value: root
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: skoala-service
+  namespace: skoala-jia
+  labels:
+    k8s-app: skoala-service
+spec:
+  type: NodePort
+  ports:
+    - port: 10000
+      nodePort: 30096
+      protocol: TCP
+      name: http
+  selector:
+    k8s-app: skoala-service
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: skoala-service
+  namespace: skoala-jia
+  labels:
+    k8s-app: skoala-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: skoala-service
+  template:
+    metadata:
+      labels:
+        k8s-app: skoala-service
+    spec:
+      containers:
+        - name: skoala-server
+          image: release-ci.daocloud.io/skoala/seata-skoala:v0.0.2
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 10000
+              protocol: TCP
+          env:
+            - name: nacos.address
+              value: nacos-jia.skoala-jia:8848
+            - name: mysql.address
+              value: mysql.skoala-jia:3306
+            - name: mysql.dbName
+              value: skoala
+            - name: mysql.username
+              value: root
+            - name: mysql.password
+              value: root
