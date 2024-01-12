@@ -34,6 +34,9 @@ public class AdController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Advertise> findById(@PathVariable Long id) {
+        if ( id % 2 ==0){
+            throw new RuntimeException("mock runtime exception in GET:/ad ");
+        }
         return this.restTemplate.getForEntity("http://" + dataServiceName + "/ad/{id}", Advertise.class, id);
     }
 

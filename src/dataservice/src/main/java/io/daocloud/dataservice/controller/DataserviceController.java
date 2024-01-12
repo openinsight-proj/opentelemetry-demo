@@ -47,6 +47,9 @@ public class DataserviceController {
     @ResponseBody
     public Ad getAdById(@PathVariable("id") int id) {
         // This returns a JSON or XML with the users
+        if ( id % 2 ==0){
+            throw new RuntimeException("mock runtime exception");
+        }
         return adRepository.findById(id).orElse(new Ad());
     }
 
@@ -63,7 +66,11 @@ public class DataserviceController {
     public Info call() {
         Random random = new Random();
         Info info = new Info();
-        info.setID(String.format("%d%d", System.currentTimeMillis(), random.nextInt(10)));
+        int id = random.nextInt(10);
+        if ( id % 2 ==0){
+            throw new NullPointerException("mock nil pointer exception");
+        }
+        info.setID(String.format("%d%d", System.currentTimeMillis(),id ));
         info.setHostName(System.getenv("HOSTNAME"));
         info.setVersion(System.getenv("VERSION"));
         return info;
