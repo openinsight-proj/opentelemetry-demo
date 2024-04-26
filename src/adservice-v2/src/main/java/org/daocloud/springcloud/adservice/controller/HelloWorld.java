@@ -155,4 +155,10 @@ public class HelloWorld {
         response.setStatusCode(HttpStatus.valueOf(Integer.parseInt(statusCode)));
         return Mono.just("ok");
     }
+
+    @RequestMapping("/healthz")
+    public Mono<String> healthz() throws UnknownHostException {
+        return Mono.just("ok");
+    }
+
 }
