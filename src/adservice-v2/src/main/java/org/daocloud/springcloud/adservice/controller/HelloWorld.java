@@ -14,6 +14,7 @@ import reactor.core.publisher.Mono;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -160,5 +161,18 @@ public class HelloWorld {
     public Mono<String> healthz() throws UnknownHostException {
         return Mono.just("ok");
     }
+
+    @RequestMapping(value = "return-body", method = RequestMethod.POST)
+    public Mono<String> returnBody(@RequestBody String body) {
+        return Mono.just(body);
+    }
+
+    @RequestMapping("/custom-return-size")
+    public Mono<String> customReturnSize(@RequestParam(required = false,defaultValue = "10") Long size){
+        char[] chars = new char[size.intValue()];
+        Arrays.fill(chars, 'a');
+        return Mono.just(new String(chars));
+    }
+
 
 }
