@@ -10,7 +10,7 @@ RUN ./mvnw --batch-mode clean package -DskipTests
 FROM docker.m.daocloud.io/library/openjdk:11.0.15-jre
 
 WORKDIR /app/
-ARG version=1.23.0
+ARG version=1.32.0
 
 COPY --from=builder /app/target/adservice-v2-1.0-SNAPSHOT.jar ./
 COPY --from=builder /app/jmx_prometheus_javaagent-0.17.0.jar ./

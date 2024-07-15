@@ -10,7 +10,7 @@ RUN ./mvnw --batch-mode clean package -DskipTests
 FROM docker.m.daocloud.io/library/openjdk:11.0.15-jre
 
 WORKDIR /app/
-ARG version=1.23.0
+ARG version=1.32.0
 
 COPY --from=builder /app/target/dataservice-0.0.1-SNAPSHOT.jar ./
 
