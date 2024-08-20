@@ -43,6 +43,12 @@ to specific the matrix size
 the `oteldemo.AdService/GetAds` API will return error randomly(50%), you can use `-Dspring.randomError=false`
 to disable this feature.
 
+## mock gRPC status code
+
+the `oteldemo.AdService/getGRPCStatus` API will return the gRPC status code, which correspond to the request `status_code` param.
+```shell
+grpcurl -plaintext -d '{"status_code": 0}' localhost:8080 oteldemo.AdService/GetGRPCStatus
+```
 
 ## Integrate to Nacos and Sentinel
 

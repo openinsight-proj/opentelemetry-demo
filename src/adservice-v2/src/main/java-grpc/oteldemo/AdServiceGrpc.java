@@ -46,6 +46,37 @@ public final class AdServiceGrpc {
     return getGetAdsMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<oteldemo.Demo.StatusRequest,
+      oteldemo.Demo.Empty> getGetGRPCStatusMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetGRPCStatus",
+      requestType = oteldemo.Demo.StatusRequest.class,
+      responseType = oteldemo.Demo.Empty.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<oteldemo.Demo.StatusRequest,
+      oteldemo.Demo.Empty> getGetGRPCStatusMethod() {
+    io.grpc.MethodDescriptor<oteldemo.Demo.StatusRequest, oteldemo.Demo.Empty> getGetGRPCStatusMethod;
+    if ((getGetGRPCStatusMethod = AdServiceGrpc.getGetGRPCStatusMethod) == null) {
+      synchronized (AdServiceGrpc.class) {
+        if ((getGetGRPCStatusMethod = AdServiceGrpc.getGetGRPCStatusMethod) == null) {
+          AdServiceGrpc.getGetGRPCStatusMethod = getGetGRPCStatusMethod =
+              io.grpc.MethodDescriptor.<oteldemo.Demo.StatusRequest, oteldemo.Demo.Empty>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetGRPCStatus"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  oteldemo.Demo.StatusRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  oteldemo.Demo.Empty.getDefaultInstance()))
+              .setSchemaDescriptor(new AdServiceMethodDescriptorSupplier("GetGRPCStatus"))
+              .build();
+        }
+      }
+    }
+    return getGetGRPCStatusMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -101,6 +132,13 @@ public final class AdServiceGrpc {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetAdsMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void getGRPCStatus(oteldemo.Demo.StatusRequest request,
+        io.grpc.stub.StreamObserver<oteldemo.Demo.Empty> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetGRPCStatusMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -110,6 +148,13 @@ public final class AdServiceGrpc {
                 oteldemo.Demo.AdRequest,
                 oteldemo.Demo.AdResponse>(
                   this, METHODID_GET_ADS)))
+          .addMethod(
+            getGetGRPCStatusMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                oteldemo.Demo.StatusRequest,
+                oteldemo.Demo.Empty>(
+                  this, METHODID_GET_GRPCSTATUS)))
           .build();
     }
   }
@@ -135,6 +180,14 @@ public final class AdServiceGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getGetAdsMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void getGRPCStatus(oteldemo.Demo.StatusRequest request,
+        io.grpc.stub.StreamObserver<oteldemo.Demo.Empty> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetGRPCStatusMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -156,6 +209,13 @@ public final class AdServiceGrpc {
     public oteldemo.Demo.AdResponse getAds(oteldemo.Demo.AdRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getGetAdsMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public oteldemo.Demo.Empty getGRPCStatus(oteldemo.Demo.StatusRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetGRPCStatusMethod(), getCallOptions(), request);
     }
   }
 
@@ -180,9 +240,18 @@ public final class AdServiceGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getGetAdsMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<oteldemo.Demo.Empty> getGRPCStatus(
+        oteldemo.Demo.StatusRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetGRPCStatusMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_GET_ADS = 0;
+  private static final int METHODID_GET_GRPCSTATUS = 1;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -204,6 +273,10 @@ public final class AdServiceGrpc {
         case METHODID_GET_ADS:
           serviceImpl.getAds((oteldemo.Demo.AdRequest) request,
               (io.grpc.stub.StreamObserver<oteldemo.Demo.AdResponse>) responseObserver);
+          break;
+        case METHODID_GET_GRPCSTATUS:
+          serviceImpl.getGRPCStatus((oteldemo.Demo.StatusRequest) request,
+              (io.grpc.stub.StreamObserver<oteldemo.Demo.Empty>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -267,6 +340,7 @@ public final class AdServiceGrpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new AdServiceFileDescriptorSupplier())
               .addMethod(getGetAdsMethod())
+              .addMethod(getGetGRPCStatusMethod())
               .build();
         }
       }
