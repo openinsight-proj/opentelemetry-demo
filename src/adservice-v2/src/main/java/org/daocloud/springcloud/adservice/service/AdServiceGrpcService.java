@@ -30,6 +30,8 @@ import oteldemo.AdServiceGrpc;
 import oteldemo.Demo.Ad;
 import oteldemo.Demo.AdRequest;
 import oteldemo.Demo.AdResponse;
+import oteldemo.Demo.StatusRequest;
+import oteldemo.Demo.Empty;
 
 import java.util.*;
 
@@ -140,6 +142,26 @@ public class AdServiceGrpcService extends AdServiceGrpc.AdServiceImplBase {
                     "Error", Attributes.of(AttributeKey.stringKey("exception.message"), e.getMessage()));
             span.setStatus(StatusCode.ERROR);
             logger.log(Level.WARN, "GetAds Failed with status {}", e.getStatus());
+            responseObserver.onError(e);
+        }
+    }
+
+    @Override
+    public void getGRPCStatus(StatusRequest request, StreamObserver<Empty> responseObserver) {
+        try {
+            int c = request.getStatusCode();
+            Status.Code[] codes = Status.Code.values();
+            if(c < 0 || c > codes.length -1){
+                throw new StatusRuntimeException(Status.OUT_OF_RANGE.withDescription("status_code param out of range, desire range is [0, 16]"));
+            }
+            Status.Code code = codes[c];
+            if(code.equals(Status.Code.OK)){
+                Empty empty = Empty.newBuilder().build();
+                responseObserver.onNext(empty);
+                responseObserver.onCompleted();
+            }
+            throw new StatusRuntimeException(code.toStatus().withDescription("mocked gRPC code"));
+        }catch (StatusRuntimeException e) {
             responseObserver.onError(e);
         }
     }

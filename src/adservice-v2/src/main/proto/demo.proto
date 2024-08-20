@@ -24,7 +24,14 @@ option go_package = "genproto/oteldemo";
 
 service AdService {
     rpc GetAds(AdRequest) returns (AdResponse) {}
+    rpc GetGRPCStatus(StatusRequest) returns (Empty) {}
 }
+
+message StatusRequest {
+    int32 status_code = 1;
+}
+
+message Empty {}
 
 message AdRequest {
     // List of important key words from the current page describing the context.
