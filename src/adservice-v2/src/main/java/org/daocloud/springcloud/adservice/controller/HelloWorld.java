@@ -1,7 +1,10 @@
 package org.daocloud.springcloud.adservice.controller;
 
 import com.alibaba.nacos.common.utils.CollectionUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.daocloud.springcloud.adservice.model.Cookie;
+import org.daocloud.springcloud.adservice.service.AdServiceGrpcService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.core.env.Environment;
@@ -23,6 +26,7 @@ import java.util.concurrent.atomic.AtomicLong;
 @RestController
 @RefreshScope
 public class HelloWorld {
+    private static final Logger logger = LogManager.getLogger(AdServiceGrpcService.class);
     private final Environment environment;
 
     private static AtomicLong count = new AtomicLong();
@@ -38,16 +42,19 @@ public class HelloWorld {
 
     @RequestMapping("/")
     public Mono<String> helloWorld() {
+        logger.info("adservice-springcloud: hello world!");
         return Mono.just("adservice-springcloud: hello world!");
     }
 
     @RequestMapping("/test1")
     public Mono<String> test1() {
+        logger.info("This is a test 1 API.");
         return Mono.just("This is a test 1 API.");
     }
 
     @RequestMapping("/test2")
     public Mono<String> test2() {
+        logger.info("This is a test 2 API.");
         return Mono.just("This is a test 2 API.");
     }
 
@@ -59,6 +66,7 @@ public class HelloWorld {
     @RequestMapping("/timeout/{timeout}")
     public Mono<String> helloWorld(@PathVariable long timeout) throws InterruptedException {
         Thread.sleep(timeout);
+        logger.info("timeout:" + timeout);
         return Mono.just("timeout:" + timeout);
     }
 
@@ -69,6 +77,7 @@ public class HelloWorld {
 
     @RequestMapping("/method")
     public Mono<String> method(ServerHttpRequest request) {
+        logger.info("method:" + request.getMethodValue());
         return Mono.just("method:" + request.getMethodValue());
     }
 
@@ -76,6 +85,7 @@ public class HelloWorld {
     public Mono<String> hostname() throws UnknownHostException {
         InetAddress localHost = InetAddress.getLocalHost();
         String hostName = localHost.getHostName();
+        logger.info("hostname:" + hostName);
 
         return Mono.just("hostname:" + hostName);
     }
@@ -84,12 +94,14 @@ public class HelloWorld {
     public Mono<String> ip() throws UnknownHostException {
         InetAddress localHost = InetAddress.getLocalHost();
         String address = localHost.getHostAddress();
+        logger.info("ip address:" + address);
         return Mono.just("ip address:" + address);
     }
 
 
     @RequestMapping({"/path/**", "/path**"})
     public Mono<String> path(ServerHttpRequest request) {
+        logger.info("path:" + request.getPath());
         return Mono.just("path:" + request.getPath());
     }
 
@@ -97,6 +109,7 @@ public class HelloWorld {
     public Mono<String> retryCount(@PathVariable long limit) {
         HelloWorld.limit = limit;
         count = new AtomicLong();
+        logger.info("retry-count-limit:" + limit);
         return Mono.just("retry-count-limit:" + limit);
     }
 
@@ -107,7 +120,8 @@ public class HelloWorld {
             return Mono.just("retry:" + "success");
         }
         response.setStatusCode(HttpStatus.SERVICE_UNAVAILABLE);
-        return Mono.just("retry fai,count is:" + count.get());
+        logger.info("retry fail,count is:" + count.get());
+        return Mono.just("retry fail,count is:" + count.get());
     }
 
     @RequestMapping("/request-header")
@@ -154,6 +168,7 @@ public class HelloWorld {
     @GetMapping("/status/{statusCode}")
     public Mono<String> getHttpStatus(ServerHttpResponse response, @PathVariable String statusCode) {
         response.setStatusCode(HttpStatus.valueOf(Integer.parseInt(statusCode)));
+        logger.info("status:" + statusCode);
         return Mono.just("ok");
     }
 
