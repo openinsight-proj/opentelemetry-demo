@@ -13,6 +13,7 @@ import org.springframework.http.ResponseCookie;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.net.InetAddress;
@@ -35,6 +36,9 @@ public class HelloWorld {
 
     @Value("${test.config:default}")
     private String config;
+
+    @Value("${spring.dataService.enabled}")
+    private boolean dataServiceEnabled;
 
     public HelloWorld(Environment environment) {
         this.environment = environment;
@@ -189,5 +193,27 @@ public class HelloWorld {
         return Mono.just(new String(chars));
     }
 
+    @RequestMapping({"/dataservice/**"})
+    public Mono<String> dataservice(ServerHttpRequest request) {
+        logger.info("Original path: " + request.getPath());
+        if (!dataServiceEnabled) {
+            return Mono.just("Data service is disabled.");
+        }
 
+        String dataServiceAddr = System.getenv("DATA_SERVICE_ADDR");
+        if (dataServiceAddr == null || dataServiceAddr.isEmpty()) {
+            return Mono.just("DATA_SERVICE_ADDR is not set.");
+        }
+
+        String path = request.getPath().value();
+        String actualPath = path.replaceFirst("/dataservice", "/ad");
+        String targetUrl = "http://" + dataServiceAddr + actualPath;
+        logger.info("Forwarding to: " + targetUrl);
+
+        WebClient webClient = WebClient.builder().build();
+        return webClient.get()
+                .uri(targetUrl)
+                .retrieve()
+                .bodyToMono(String.class);
+    }
 }

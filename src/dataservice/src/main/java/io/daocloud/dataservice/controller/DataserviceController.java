@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.HandlerMapping;
+import javax.servlet.http.HttpServletRequest;
 
 import java.util.Random;
 
@@ -74,5 +76,14 @@ public class DataserviceController {
         info.setHostName(System.getenv("HOSTNAME"));
         info.setVersion(System.getenv("VERSION"));
         return info;
+    }
+
+    @GetMapping("/path/**")
+    @ResponseBody
+    public String handlePath(HttpServletRequest request) {
+        String path = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
+
+        logger.info("Captured path: " + path);
+        return "You requested path: " + path;
     }
 }
